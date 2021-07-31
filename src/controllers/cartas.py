@@ -25,3 +25,14 @@ class Cartas(Resource):
         }
         cartas_db.append(carta)
         return response, 200
+
+    def put(self, ):
+        response = api.payload
+        carta = cartas_db[int(response['id'])]
+        carta[int(response['id'])][response['item']] = response['content']
+        return response, 200
+        
+    def delete(self, ):
+        response = api.payload
+        cartas_db.pop(int(response['id']))
+        return response, 200
