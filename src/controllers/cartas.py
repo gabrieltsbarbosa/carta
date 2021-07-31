@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restx import Api, Resource
 
 from src.server.instance import server
@@ -11,7 +11,13 @@ cartas_db = [
 @api.route('/cartas')
 class Cartas(Resource):
     def get(self, ):
-        return cartas_db
+        i = request.args.get('id')
+        print('\n\n\n\n\n\n')
+        print(i)
+        if i == None:
+            return cartas_db
+        else:
+            return cartas_db[int(i)]
 
     def post(self, ):
         response = api.payload
@@ -24,15 +30,19 @@ class Cartas(Resource):
             }
         }
         cartas_db.append(carta)
-        return response, 200
+        return response, 201
 
     def put(self, ):
         response = api.payload
-        carta = cartas_db[int(response['id'])]
+        carta = request.args.get('id') #cartas_db[int(response['id'])]
         carta[int(response['id'])][response['item']] = response['content']
         return response, 200
         
     def delete(self, ):
-        response = api.payload
-        cartas_db.pop(int(response['id']))
-        return response, 200
+        try:
+            response = api.payload
+            cartas_db.pop(int(response['id']))
+            return response, 200
+
+        except:
+            return "Error", 404
