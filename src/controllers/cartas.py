@@ -5,44 +5,50 @@ from src.server.instance import server
 
 app, api = server.app, server.api
 
-cartas_db = [
-]
+cartas_db = {}
 
 @api.route('/cartas')
 class Cartas(Resource):
+    @app.route('/cartas/<int:id>', methods=['GET'])
+    def getById(id):
+        for i in cartas_db:
+            if i == id:
+                return cartas_db[id], 200
+
+        return "", 404
+
     def get(self, ):
-        i = request.args.get('id')
-        print('\n\n\n\n\n\n')
-        print(i)
-        if i == None:
-            return cartas_db
-        else:
-            return cartas_db[int(i)]
+        cartas = []
+        for i in cartas_db:
+            cartas.append(cartas_db[i])
+        return cartas
 
     def post(self, ):
         response = api.payload
-        id = len(cartas_db)
+        id = len(cartas_db) + 1
         carta = {
             id:{
+                'id': id,
                 'nome': response['nome'],
                 'endereco': response['endereco'],
                 'texto':response['texto']
             }
         }
-        cartas_db.append(carta)
-        return response, 201
+        cartas_db.update(carta)
+        return carta[id], 201
 
-    def put(self, ):
+    @app.route('/cartas/<int:id>', methods=['PUT'])
+    def put(id):
         response = api.payload
-        id = int(request.args.get('id'))
         carta = cartas_db[id]
         carta[id][response['item']] = response['content']
         return response, 200
-        
-    def delete(self, ):
+    
+    @app.route('/cartas/<int:id>', methods=['DELETE'])
+    def delete(id):
         try:
             response = api.payload
-            cartas_db.pop(int(response['id']))
+            cartas_db.pop(int(id))
             return response, 200
 
         except:
