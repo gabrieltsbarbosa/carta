@@ -34,8 +34,9 @@ class Cartas(Resource):
 
     def put(self, ):
         response = api.payload
-        carta = request.args.get('id') #cartas_db[int(response['id'])]
-        carta[int(response['id'])][response['item']] = response['content']
+        id = int(request.args.get('id'))
+        carta = cartas_db[id]
+        carta[id][response['item']] = response['content']
         return response, 200
         
     def delete(self, ):
