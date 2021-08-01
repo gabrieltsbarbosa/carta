@@ -2,7 +2,7 @@ cartas_db = {}
 
 
 class Repo():
-    def catch(id = 0):
+    def get(id = 0):
         if id != 0:
             for i in cartas_db:
                 if i == id:

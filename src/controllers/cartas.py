@@ -11,10 +11,10 @@ app, api = server.app, server.api
 class Cartas(Resource):
     @app.route('/cartas/<int:id>', methods=['GET'])
     def getById(id):
-        return Repo.catch(id)
+        return Repo.get(id)
 
     def get(self, ):
-        return Repo.catch()
+        return Repo.get()
 
     def post(self, ):
         return Repo.insert(api.payload)
