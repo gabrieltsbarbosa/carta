@@ -9,6 +9,10 @@ application, api = server.application, server.api
 
 @api.route('/letters')
 class Letters(Resource):
+    @application.route('/health', methods=['GET'])
+    def healthCheck():
+        return 'healthCheck', 200
+
     @application.route('/letters/<int:id>', methods=['GET'])
     def getById(id):
         return Repo.get(id)
@@ -26,7 +30,3 @@ class Letters(Resource):
     @application.route('/letters/<int:id>', methods=['DELETE'])
     def delete(id):
         return Repo.delete(id)
-
-    @application.route('/', methods=['GET', 'POST'])
-    def healthCheck():
-        return 'healthCheck', 200
