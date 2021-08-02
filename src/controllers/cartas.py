@@ -4,12 +4,12 @@ from flask_restx import Api, Resource
 from src.server.instance import server
 from src.repositories.cardRepository import Repo
 
-app, api = server.app, server.api
+application, api = server.application, server.api
 
 
 @api.route('/cartas')
 class Cartas(Resource):
-    @app.route('/cartas/<int:id>', methods=['GET'])
+    @application.route('/cartas/<int:id>', methods=['GET'])
     def getById(id):
         return Repo.get(id)
 
@@ -19,10 +19,14 @@ class Cartas(Resource):
     def post(self, ):
         return Repo.insert(api.payload)
 
-    @app.route('/cartas/<int:id>', methods=['PUT'])
+    @application.route('/cartas/<int:id>', methods=['PUT'])
     def put(id):
         return Repo.update(id, api.payload)
     
-    @app.route('/cartas/<int:id>', methods=['DELETE'])
+    @application.route('/cartas/<int:id>', methods=['DELETE'])
     def delete(id):
         return Repo.delete(id)
+
+    @application.route('/', methods=['GET', 'POST'])
+    def healthCheck():
+        return 'healthCheck', 200

@@ -3,15 +3,15 @@ from flask_restx import Api
 
 class Server():
     def __init__(self, ):
-        self.app = Flask(__name__)
-        self.api = Api(self.app,
+        self.application = Flask(__name__)
+        self.api = Api(self.application,
             version = '1.0',
             title = 'Cartas para o Papai Noel',
             doc = '/docs'
         )
 
     def run(self, ):
-        self.app.run(
+        self.application.run(
             debug = True
         )
 
