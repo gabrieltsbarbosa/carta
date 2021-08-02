@@ -12,7 +12,8 @@ class Server():
 
     def run(self, ):
         self.application.run(
-            debug = True, host='0.0.0.0'
+            debug = True, 
+            #host='0.0.0.0'
         )
 
 server = Server()

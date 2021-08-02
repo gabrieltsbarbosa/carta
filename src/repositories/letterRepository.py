@@ -17,12 +17,15 @@ class Repo():
 
     
     def insert(package):
-        id = len(letters_db) + 1
+        aux = 0 
+        for i in letters_db:
+            aux = i
+        id = aux + 1
         letter = {
             id:{
                 'id': id,
                 'name': package['name'],
-                'adress': package['adress'],
+                'address': package['address'],
                 'txt':package['txt']
             }
         }
