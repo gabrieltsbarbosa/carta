@@ -12,7 +12,7 @@ class Server():
 
     def run(self, ):
         self.application.run(
-            debug = True
+            debug = True, port = 80, host='0.0.0.0'
         )
 
 server = Server()
